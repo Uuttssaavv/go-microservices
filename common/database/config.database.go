@@ -4,6 +4,7 @@ import (
 	"go-microservices/common/utilities"
 
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/sirupsen/logrus"
 )
 
@@ -13,10 +14,9 @@ type DBConnection interface {
 
 type service struct{}
 
-func NewDBService() *service{
+func NewDBService() *service {
 	return &service{}
 }
-
 
 func (s *service) Connection() *gorm.DB {
 	databaseURI := make(chan string, 1)
@@ -38,11 +38,9 @@ func (s *service) Connection() *gorm.DB {
 	return db
 }
 
-
 func databaseMigrations(db *gorm.DB) {
 	//
 
 	logrus.Info("Database migrations")
 
 }
-
