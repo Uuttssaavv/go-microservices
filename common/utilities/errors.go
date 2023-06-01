@@ -12,10 +12,10 @@ type ErrorMsg struct {
 	Message string `json:"message"`
 }
 
-func ValidatorErrorResponse(ctx *gin.Context, StatusCode int, Method string, Error interface{}) {
+func ValidatorErrorResponse(ctx *gin.Context, StatusCode int, Error interface{}) {
 	errResponse := ErrorResponse{
 		StatusCode: StatusCode,
-		Method:     Method,
+		Method:     ctx.Request.Method,
 		Errors:     Error,
 	}
 
