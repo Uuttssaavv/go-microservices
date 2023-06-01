@@ -1,6 +1,7 @@
 package main
 
 import (
+	"go-microservices/auth-service/routes"
 	"go-microservices/common/database"
 	"go-microservices/common/utilities"
 	"log"
@@ -18,14 +19,16 @@ func main() {
 func SetupAppRouter() *gin.Engine {
 
 	dbService := database.NewDBService()
-	dbService.Connection()
+	db := dbService.Connection()
 
 	router := gin.Default()
 
 	gin.SetMode(gin.DebugMode)
 
 	apiGroup := router.Group("api/v1")
-	
+
+	routes.AuthRoute(apiGroup, db)
+
 	logrus.Info("ApiGroup=>", apiGroup)
 
 	return router
