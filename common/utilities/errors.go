@@ -45,14 +45,21 @@ func getErrorMsg(fe validator.FieldError) string {
 	switch fe.Tag() {
 	case "required":
 		return fe.Field() + " is required"
+	
 	case "email":
 		return "Invalid email address"
+	
 	case "len":
 		return fe.Field() + " should be of length " + fe.Param() + " digits"
+	
 	case "min":
 		return fe.Field() + " should be at least of " + fe.Param() + " characters"
+	
 	case "max":
 		return fe.Field() + " should not be more than " + fe.Param() + " characters"
+
+	case "numeric":
+		return fe.Field() + " should contain only numbers"
 	}
 	return "Unknown error"
 }
