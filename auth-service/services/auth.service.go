@@ -24,6 +24,7 @@ func (service *service) Login(input *models.UserInputModel) (*entities.UserEntit
 	userEntity := entities.UserEntity{
 		Email:    input.Email,
 		Password: input.Password,
+		Phone:    input.Phone,
 	}
 
 	return service.repository.Login(&userEntity)
