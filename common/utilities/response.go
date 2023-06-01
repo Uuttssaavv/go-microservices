@@ -17,11 +17,11 @@ type ErrorResponse struct {
 	Errors     interface{} `json:"errors"`
 }
 
-func APIResponse(ctx *gin.Context, Message string, StatusCode int, Method string, Data interface{}) {
+func APIResponse(ctx *gin.Context, Message string, StatusCode int, Data interface{}) {
 
 	jsonResponse := Responses{
 		StatusCode: StatusCode,
-		Method:     Method,
+		Method:     ctx.Request.Method,
 		Message:    Message,
 		Data:       Data,
 	}
