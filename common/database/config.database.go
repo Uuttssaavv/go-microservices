@@ -1,6 +1,7 @@
 package database
 
 import (
+	"go-microservices/common/models"
 	"go-microservices/common/utilities"
 
 	"github.com/jinzhu/gorm"
@@ -41,6 +42,6 @@ func (s *service) Connection() *gorm.DB {
 func databaseMigrations(db *gorm.DB) {
 	//
 
+	db.AutoMigrate(&models.UserEntity{})
 	logrus.Info("Database migrations")
-
 }
