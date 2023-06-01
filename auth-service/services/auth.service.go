@@ -19,23 +19,3 @@ type service struct {
 func NewAuthService(repo repositories.Repository) *service {
 	return &service{repository: repo}
 }
-
-func (service *service) Login(input *models.UserInputModel) (*entities.UserEntity, int) {
-	userEntity := entities.UserEntity{
-		Email:    input.Email,
-		Password: input.Password,
-		Phone:    input.Phone,
-	}
-
-	return service.repository.Login(&userEntity)
-}
-
-func (service *service) Register(input *models.UserInputModel) (*entities.UserEntity, int) {
-	userEntity := entities.UserEntity{
-		Email:    input.Email,
-		Password: input.Password,
-		Phone:    input.Phone,
-	}
-
-	return service.repository.Register(&userEntity)
-}
