@@ -1,7 +1,9 @@
 package repositories
 
 import (
+	"fmt"
 	entities "go-microservices/common/models"
+	"go-microservices/common/utilities"
 	"net/http"
 
 	"github.com/jinzhu/gorm"
@@ -27,14 +29,22 @@ func (repo *repository) Login(enitity *entities.UserEntity) (*entities.UserEntit
 	db := repo.db
 
 	var user entities.UserEntity
+	//  compare password
 
-	checkUser := db.Select("*").Where(&entities.UserEntity{Email: enitity.Email}).First(user)
+	checkUser := db.Select("*").Where("email=? OR phone=?", enitity.Email, enitity.Phone).First(&user)
 
-	if checkUser.RowsAffected != 0 {
-		return &user, http.StatusOK
+	if checkUser.RowsAffected == 0 {
+		return nil, http.StatusNotFound
+	}
+	
+	err := utilities.ComparePassword(user.Password, enitity.Password)
+
+	if err != nil {
+		return nil, http.StatusUnauthorized
 	}
 
-	return nil, http.StatusNotFound
+	return &user, http.StatusOK
+
 }
 
 func (repo *repository) Register(enitity *entities.UserEntity) (*entities.UserEntity, int) {
@@ -43,16 +53,17 @@ func (repo *repository) Register(enitity *entities.UserEntity) (*entities.UserEn
 
 	var user entities.UserEntity
 
-	checkUser := db.Select("*").Where(&entities.UserEntity{Email: enitity.Email}).First(user)
-
+	checkUser := db.Select("*").Where("email=? OR phone=?", enitity.Email, enitity.Phone).First(&user)
 	if checkUser.RowsAffected > 0 {
 		return nil, http.StatusConflict
 	}
-	createUser := db.Select("*").Create(&enitity).Select(user)
+	db.NewRecord(&enitity)
+	checkUser = db.Create(&enitity)
 
-	if createUser.RowsAffected > 0 {
+	if checkUser.Error != nil {
+		fmt.Println(checkUser.Error.Error())
 		return nil, http.StatusExpectationFailed
 	}
-	
-	return &user, http.StatusCreated
+
+	return enitity, http.StatusCreated
 }
