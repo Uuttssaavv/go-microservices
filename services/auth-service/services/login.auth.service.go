@@ -1,17 +1,18 @@
 package services
+
 import (
-	"go-microservices/auth-service/models"
+	"go-microservices/services/auth-service/models"
 	entities "go-microservices/common/models"
 )
 
 
 
-func (service *service) Register(input *models.UserInputModel) (*entities.UserEntity, int) {
+func (service *service) Login(input *models.UserInputModel) (*entities.UserEntity, int) {
 	userEntity := entities.UserEntity{
 		Email:    input.Email,
 		Password: input.Password,
 		Phone:    input.Phone,
 	}
 
-	return service.repository.Register(&userEntity)
+	return service.repository.Login(&userEntity)
 }

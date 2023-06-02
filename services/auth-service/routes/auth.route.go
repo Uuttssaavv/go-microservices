@@ -1,9 +1,9 @@
 package routes
 
 import (
-	"go-microservices/auth-service/handlers"
-	"go-microservices/auth-service/repositories"
-	"go-microservices/auth-service/services"
+	"go-microservices/services/auth-service/handlers"
+	"go-microservices/services/auth-service/repositories"
+	"go-microservices/services/auth-service/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"

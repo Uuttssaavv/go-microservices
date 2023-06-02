@@ -1,8 +1,8 @@
 package services
 
 import (
-	"go-microservices/auth-service/models"
-	"go-microservices/auth-service/repositories"
+	"go-microservices/services/auth-service/models"
+	"go-microservices/services/auth-service/repositories"
 	entities "go-microservices/common/models"
 )
 

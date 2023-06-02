@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-microservices/auth-service/routes"
+	"go-microservices/services/auth-service/routes"
 	"go-microservices/common/database"
 	"go-microservices/common/utilities"
 	"log"

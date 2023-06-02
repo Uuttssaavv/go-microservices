@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"go-microservices/auth-service/services"
+	"go-microservices/services/auth-service/services"
 )
 
 type handler struct {

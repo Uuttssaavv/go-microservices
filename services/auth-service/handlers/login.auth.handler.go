@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"go-microservices/auth-service/models"
+	"go-microservices/services/auth-service/models"
 	"go-microservices/common/utilities"
 	"net/http"
 
