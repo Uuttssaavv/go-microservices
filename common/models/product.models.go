@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type ProductEntity struct{
 	ID uint   `gorm:"primary key"`
 	Title string  `gorm:"not null"`
@@ -9,5 +11,7 @@ type ProductEntity struct{
 	Discount float64  `gorm:"not null"`
 	TotalQuanitity uint  `gorm:"not null"`
 	StockQuantity uint  `gorm:"not null"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
