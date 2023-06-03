@@ -4,9 +4,10 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/sirupsen/logrus"
 )
 
-func Sign(Data map[string]interface{}, expiresAt time.Duration) (string, error) {
+func SignToken(Data map[string]interface{}, expiresAt time.Duration) (string, error) {
 	expiringTime := time.Now().Add(expiresAt)
 	secretKey := GodotEnv("JWT_SECRET")
 
@@ -27,4 +28,19 @@ func Sign(Data map[string]interface{}, expiresAt time.Duration) (string, error) 
 	}
 	return accessToken, err
 
+}
+
+func VerifyToken(accessToken string) (*jwt.Token, error) {
+	jwtSecretKey := GodotEnv("JWT_SECRET")
+
+	token, err := jwt.Parse(accessToken, func(token *jwt.Token) (interface{}, error) {
+		return []byte(jwtSecretKey), nil
+	})
+
+	if err != nil {
+		logrus.Error(err.Error())
+		return nil, err
+	}
+
+	return token, nil
 }
