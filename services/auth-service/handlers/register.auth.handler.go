@@ -26,7 +26,7 @@ func (handler *handler) RegisterHandler(context *gin.Context) {
 	switch statusCode {
 	case http.StatusCreated:
 
-		token, err := utilities.Sign(map[string]interface{}{"id": registerEntity.ID, "email": registerEntity.Email}, 24*60*1)
+		token, err := utilities.SignToken(map[string]interface{}{"id": registerEntity.ID, "email": registerEntity.Email}, 24*60*1)
 
 		if err != nil {
 			utilities.APIResponse(context, "Cannt generate token", http.StatusInternalServerError, err)
