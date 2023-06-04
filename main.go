@@ -1,13 +1,13 @@
 package main
 
 import (
-	"go-microservices/services/auth-service/routes"
 	"go-microservices/common/database"
 	"go-microservices/common/utilities"
+	authRoute "go-microservices/services/auth-service/routes"
+	productRoute "go-microservices/services/product-service/routes"
 	"log"
 
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 )
 
 func main() {
@@ -27,9 +27,8 @@ func SetupAppRouter() *gin.Engine {
 
 	apiGroup := router.Group("api/v1")
 
-	routes.AuthRoute(apiGroup, db)
-
-	logrus.Info("ApiGroup=>", apiGroup)
+	authRoute.AuthRoute(apiGroup, db)
+	productRoute.ProductRoutes(apiGroup, db)
 
 	return router
 }
