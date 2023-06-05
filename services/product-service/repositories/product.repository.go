@@ -29,11 +29,6 @@ func (*repository) GetAllProducts() (*[]entities.ProductEntity, int) {
 	panic("unimplemented")
 }
 
-// GetProductById implements Repository.
-func (*repository) GetProductById(uint) (*entities.ProductEntity, int) {
-	panic("unimplemented")
-}
-
 // GetProductsByUser implements Repository.
 func (*repository) GetProductsByUser(uint) (*[]entities.ProductEntity, int) {
 	panic("unimplemented")
