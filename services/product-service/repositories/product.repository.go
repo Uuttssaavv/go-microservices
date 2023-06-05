@@ -39,11 +39,6 @@ func (*repository) GetProductsByUser(uint) (*[]entities.ProductEntity, int) {
 	panic("unimplemented")
 }
 
-// UpdateProduct implements Repository.
-func (*repository) UpdateProduct(entities.ProductEntity) (*entities.ProductEntity, int) {
-	panic("unimplemented")
-}
-
 func NewProductRepository(db *gorm.DB) *repository {
 	return &repository{db: db}
 }

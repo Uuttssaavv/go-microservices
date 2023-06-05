@@ -20,4 +20,5 @@ func ProductRoutes(group *gin.RouterGroup, db *gorm.DB) {
 	productHandler := handlers.NewProductHandler(productService)
 
 	group.POST("/create", productHandler.CreateProduct)
+	group.POST("/update/:productId", productHandler.UpdateProduct)
 }
