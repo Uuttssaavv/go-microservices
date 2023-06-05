@@ -7,7 +7,7 @@ Each microservice focuses on a specific business capability.
 
 ### Illustration of Microservices
 
-<img src="docs/go.microservices.png">
+<img src="docs/go.microservices.png" height=250 width=500>
 
 ### Why do we use microservices?
 
