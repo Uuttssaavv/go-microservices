@@ -43,5 +43,5 @@ func databaseMigrations(db *gorm.DB) {
 	
 	db.AutoMigrate(&models.UserEntity{}, &models.ProductEntity{})
 	//  the following adds table association with foreignkey 
-	db.Model(&models.ProductEntity{}).AddForeignKey("userId", "user_entities(id)", "RESTRICT", "RESTRICT")
+	db.Model(&models.ProductEntity{}).AddForeignKey("user_id", "user_entities(id)", "RESTRICT", "RESTRICT")
 }

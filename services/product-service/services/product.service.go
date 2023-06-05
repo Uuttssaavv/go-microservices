@@ -21,10 +21,6 @@ type service struct {
 func NewProductService(repository repositories.Repository) *service {
 	return &service{repositories: repository}
 }
-
-func (s *service) CreateProduct(models.ProductInput) (*entities.ProductEntity, int) {
-	return nil, 0
-}
 func (s *service) UpdateProduct(models.ProductInput) (*entities.ProductEntity, int) { return nil, 0 }
 func (s *service) GetProductById(uint) (*entities.ProductEntity, int)               { return nil, 0 }
 func (s *service) GetProductsByUser(uint) (*[]entities.ProductEntity, int)          { return nil, 0 }

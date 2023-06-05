@@ -10,6 +10,8 @@ func (s *service) CreateProduct(input models.ProductInput) (*entities.ProductEnt
 	var entity entities.ProductEntity
 
 	utilities.Unmarshal(input, &entity)
-
+	//  assign the stock quantities as total quantities when creating new product
+	entity.StockQuantities = input.TotalQuanitity
+	entity.UserID = input.UserID
 	return s.repositories.CreateProduct(entity)
 }
