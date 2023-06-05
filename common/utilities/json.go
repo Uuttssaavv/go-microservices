@@ -2,9 +2,10 @@ package utilities
 
 import "encoding/json"
 
-func Unmarshal[T any](object interface{}, data *T) {
+func Unmarshal[T any](object interface{}, data *T) error {
 
 	jason, _ := json.Marshal(object)
 
-	json.Unmarshal([]byte(jason), &data)
+	errors := json.Unmarshal([]byte(jason), &data)
+	return errors
 }
