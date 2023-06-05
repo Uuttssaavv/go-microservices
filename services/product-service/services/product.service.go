@@ -12,7 +12,7 @@ type Service interface {
 	GetProductById(uint) (*entities.ProductEntity, int)
 	GetProductsByUser(uint) (*[]entities.ProductEntity, int)
 	GetAllProducts() (*[]entities.ProductEntity, int)
-	DeleteProduct(uint) int
+	DeleteProduct(uint, uint) int
 }
 type service struct {
 	repositories repositories.Repository
@@ -21,6 +21,5 @@ type service struct {
 func NewProductService(repository repositories.Repository) *service {
 	return &service{repositories: repository}
 }
-func (s *service) GetProductsByUser(uint) (*[]entities.ProductEntity, int)          { return nil, 0 }
-func (s *service) GetAllProducts() (*[]entities.ProductEntity, int)                 { return nil, 0 }
-func (s *service) DeleteProduct(uint) int                                           { return 0 }
+func (s *service) GetProductsByUser(uint) (*[]entities.ProductEntity, int) { return nil, 0 }
+func (s *service) GetAllProducts() (*[]entities.ProductEntity, int)        { return nil, 0 }

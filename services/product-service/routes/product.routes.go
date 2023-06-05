@@ -18,4 +18,5 @@ func ProductRoutes(group *gin.RouterGroup, db *gorm.DB) {
 	group.POST("/create", productHandler.CreateProduct)
 	group.POST("/update/:productId", productHandler.UpdateProduct)
 	group.GET(":productId", productHandler.GetProductDetail)
+	group.DELETE(":productId", productHandler.DeleteProduct)
 }

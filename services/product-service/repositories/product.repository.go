@@ -12,16 +12,11 @@ type Repository interface {
 	GetProductById(uint) (*entities.ProductEntity, int)
 	GetProductsByUser(uint) (*[]entities.ProductEntity, int)
 	GetAllProducts() (*[]entities.ProductEntity, int)
-	DeleteProduct(uint) int
+	DeleteProduct(uint,uint) int
 }
 
 type repository struct {
 	db *gorm.DB
-}
-
-// DeleteProduct implements Repository.
-func (*repository) DeleteProduct(uint) int {
-	panic("unimplemented")
 }
 
 // GetAllProducts implements Repository.
