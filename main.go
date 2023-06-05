@@ -4,7 +4,7 @@ import (
 	"go-microservices/common/database"
 	"go-microservices/common/utilities"
 	authRoute "go-microservices/services/auth-service/routes"
-	productRoute "go-microservices/services/product-service/routes"
+	productRoutes "go-microservices/services/product-service/routes"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -28,7 +28,8 @@ func SetupAppRouter() *gin.Engine {
 	apiGroup := router.Group("api/v1")
 
 	authRoute.AuthRoute(apiGroup, db)
-	productRoute.ProductRoutes(apiGroup, db)
+	productRoute := apiGroup.Group("/product")
+	productRoutes.ProductRoutes(productRoute, db)
 
 	return router
 }
