@@ -11,7 +11,6 @@ type Service interface {
 	UpdateProduct(models.UpdateProductInput) (*entities.ProductEntity, int)
 	GetProductById(uint) (*entities.ProductEntity, int)
 	GetProductsByUser(uint) (*[]entities.ProductEntity, int)
-	GetAllProducts() (*[]entities.ProductEntity, int)
 	DeleteProduct(uint, uint) int
 }
 type service struct {
@@ -21,4 +20,3 @@ type service struct {
 func NewProductService(repository repositories.Repository) *service {
 	return &service{repositories: repository}
 }
-func (s *service) GetAllProducts() (*[]entities.ProductEntity, int)        { return nil, 0 }
