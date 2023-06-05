@@ -27,3 +27,9 @@ func (entity *ProductEntity) BeforeCreate(db *gorm.DB) error {
 
 	return nil
 }
+
+func (entity *ProductEntity) BeforeUpdate(db *gorm.DB) error {
+	entity.UpdatedAt = time.Now().Local()
+
+	return nil
+}
