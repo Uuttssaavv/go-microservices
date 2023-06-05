@@ -23,6 +23,8 @@ func SetupAppRouter() *gin.Engine {
 	
 	productRoute := apiGroup.Group("/product")
 	
+	// using auth middleware to verify the
+	// user token
 	productRoute.Use(middlewares.AuthMiddleware())
 
 	productRoutes.ProductRoutes(productRoute, db)

@@ -10,8 +10,6 @@ import (
 )
 
 func ProductRoutes(group *gin.RouterGroup, db *gorm.DB) {
-	// using auth middleware to verify the
-	// user token
 
 	productRepository := repositories.NewProductRepository(db)
 	productService := services.NewProductService(productRepository)
@@ -19,5 +17,5 @@ func ProductRoutes(group *gin.RouterGroup, db *gorm.DB) {
 
 	group.POST("/create", productHandler.CreateProduct)
 	group.POST("/update/:productId", productHandler.UpdateProduct)
-	group.GET(":productId", productHandler.UpdateProduct)
+	group.GET(":productId", productHandler.GetProductDetail)
 }
