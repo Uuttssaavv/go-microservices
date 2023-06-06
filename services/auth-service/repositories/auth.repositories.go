@@ -4,7 +4,7 @@ import (
 	"github.com/jinzhu/gorm"
 	entities "go-microservices/common/models"
 )
-
+//go:generate mockery --name=Repository --output=../tests/mock/ --case=underscore --with-expecter
 type Repository interface {
 	Login(enitity *entities.UserEntity) (*entities.UserEntity, int)
 
