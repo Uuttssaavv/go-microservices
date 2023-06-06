@@ -2,65 +2,88 @@ package tests
 
 import (
 	entities "go-microservices/common/models"
+
+	mocks "go-microservices/services/auth-service/tests/mock"
 	"net/http"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
-
-func (m *MockRepository) Register(entity *entities.UserEntity) (*entities.UserEntity, int) {
-
-	if entity.Email == "existing@example.com" || entity.Phone == "123456789" {
-		return nil, http.StatusConflict
-	}
-
-	user := &entities.UserEntity{
-		ID:    1,
-		Email: entity.Email,
-		Phone: entity.Phone,
-	}
-	return user, http.StatusCreated
-}
-
 func TestRegister(t *testing.T) {
-	t.Log("Test successful user register")
-	mockRepo := &MockRepository{}
 
-	entity := &entities.UserEntity{
-		Email: "test@example.com",
-		Phone: "987654321",
+	t.Log("Test successful user login")
+	mockRepo := mocks.NewRepository(t)
+
+	entity := entities.UserEntity{
+		Email:    "test@example.com",
+		Phone:    "987654321",
+		Password: "password",
 	}
 
 	expectedUser := &entities.UserEntity{
-		ID:    1,
-		Email: "test@example.com",
-		Phone: "987654321",
+		ID:       1,
+		Email:    "test@example.com",
+		Phone:    "987654321",
+		Password: "password",
 	}
-	expectedStatus := http.StatusCreated
+	
+	//  stub the Register call
+	mockRepo.On("Register", &entity).Return(expectedUser, http.StatusOK)
 
-	user, status := mockRepo.Register(entity)
+	expectedStatus := http.StatusOK
+
+	user, status := mockRepo.Register(&entity)
 
 	assert.Equal(t, expectedUser, user)
+
 	assert.Equal(t, expectedStatus, status)
 
 }
 
-func TestRegister_Fail(t *testing.T) {
-	t.Log("user register fail")
-	mockRepo := &MockRepository{}
+func TestRegister_AlreadyExists(t *testing.T) {
+	
+	t.Log("Test when incorrect password")
+	mockRepo := mocks.NewRepository(t)
 
-	entity := &entities.UserEntity{
-		Email: "existing@example.com",
-		Phone: "123456789",
+	entity := entities.UserEntity{
+		Email:    "test@example.com",
+		Phone:    "987654321",
+		Password: "password",
 	}
 
-	
+	//  stub the Register call
+	mockRepo.On("Register", &entity).Return(nil, http.StatusConflict)
+
 	expectedStatus := http.StatusConflict
 
-	user, status := mockRepo.Register(entity)
+	user, status := mockRepo.Register(&entity)
 
 	assert.Nil(t, user)
-	assert.Equal(t,status,expectedStatus)
-}
 
+	assert.Equal(t, expectedStatus, status)
+
+}
+func TestLogin_UnableToCreate(t *testing.T) {
+	
+	t.Log("Test when user does not exist")
+	mockRepo := mocks.NewRepository(t)
+
+	entity := entities.UserEntity{
+		Email:    "test@example.com",
+		Phone:    "987654321",
+		Password: "password",
+	}
+
+	//  stub the Register call
+	mockRepo.On("Register", &entity).Return(nil, http.StatusExpectationFailed)
+
+	expectedStatus := http.StatusExpectationFailed
+
+	user, status := mockRepo.Register(&entity)
+
+	assert.Nil(t, user)
+
+	assert.Equal(t, expectedStatus, status)
+
+}
