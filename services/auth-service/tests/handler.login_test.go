@@ -14,6 +14,30 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
+func TestLoginHandler_BindingError(t *testing.T) {
+	//
+	gin.SetMode(gin.TestMode)
+
+	testContext, _ := gin.CreateTestContext(httptest.NewRecorder())
+
+	//  create the mock service
+	mockService := mocks.NewService(t)
+
+	// initialize the handler
+	handler := handlers.NewAuthHandler(mockService)
+
+	testContext.Request, _ = http.NewRequest(http.MethodPost, "/", bytes.NewBufferString(
+		`invalid-json`))
+
+	// call the login handler
+	handler.LoginHandler(testContext)
+
+	// assert
+	assert.Equal(t, http.StatusBadRequest, testContext.Writer.Status())
+
+	mockService.AssertExpectations(t)
+}
+
 func TestLoginHandler_Success(t *testing.T) {
 	//
 	gin.SetMode(gin.TestMode)
